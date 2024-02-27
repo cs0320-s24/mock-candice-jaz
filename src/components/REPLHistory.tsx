@@ -15,7 +15,7 @@ export function REPLHistory(props: REPLHistoryProps) {
       {props.history.map((item, index) => {
         if (isArrayOfArrays(item)) {
           return (
-            <table key={index}>
+            <table key={index} class="centered-table">
               <tbody>
                 {item.map((row, rowIndex) => (
                   <tr key={rowIndex}>

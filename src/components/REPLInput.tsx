@@ -6,7 +6,7 @@ import { commandRegistry } from "../utils/commandRegistry";
 interface REPLInputProps {
   // TODO: Fill this with desired props... Maybe something to keep track of the submitted commands\
   history: (string | string[])[];
-  setHistory: Dispatch<SetStateAction<(string | string[])[]>>;
+  setHistory: Dispatch<SetStateAction<(string | string[][])[]>>;
 }
 // You can use a custom interface or explicit fields or both! An alternative to the current function header might be:
 // REPLInput(history: string[], setHistory: Dispatch<SetStateAction<string[]>>)
@@ -21,7 +21,7 @@ export function REPLInput(props: REPLInputProps) {
     const [command, ...args] = commandString.split(' ');
     try {
         const output = commandRegistry.executeCommand(command, args);
-        props.setHistory([...props.history, `${output}`]);
+        props.setHistory([...props.history, output]);
     } catch (error: any) {
         props.setHistory([...props.history, `${error.message}`]);
     }
