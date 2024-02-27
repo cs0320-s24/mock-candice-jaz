@@ -27,10 +27,27 @@ export function registerCommands() {
         return currentCSV; // Returns String[][]
     });
 
-    // commandRegistry.registerCommand('search', (args) => {
-    //     if (!currentCSV) {
-    //         return 'Error: No CSV loaded';
-    //     }
-    //     const [column, value] = args;
-    // });
+    commandRegistry.registerCommand('search', (args) => {
+        if (!currentCSV) {
+            return 'Error: No CSV loaded';
+        }
+        const searchTarget = args[0];
+        let columnIndex: number;
+        let isHeaderPresent = currentCSV[0].includes(searchTarget);
+    
+        if (isHeaderPresent) {
+            columnIndex = currentCSV[0].indexOf(searchTarget);
+        } else {
+            columnIndex = parseInt(searchTarget);
+            if (isNaN(columnIndex) || columnIndex < 0 || columnIndex >= currentCSV[0].length) {
+                return `Error: Invalid column index`;
+            }
+        }
+    
+        const searchValue = args[1];
+        const searchResults = currentCSV.filter((row, index) => 
+            (isHeaderPresent && index > 0 || !isHeaderPresent) && row[columnIndex] === searchValue
+        );
+        return searchResults.length > 0 ? searchResults : 'No results found';
+    });
 }
