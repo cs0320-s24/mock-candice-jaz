@@ -5,8 +5,8 @@ import { commandRegistry } from "../utils/commandRegistry";
 
 interface REPLInputProps {
   // TODO: Fill this with desired props... Maybe something to keep track of the submitted commands\
-  history: string[];
-  setHistory: Dispatch<SetStateAction<string[]>>;
+  history: (string | string[])[];
+  setHistory: Dispatch<SetStateAction<(string | string[])[]>>;
 }
 // You can use a custom interface or explicit fields or both! An alternative to the current function header might be:
 // REPLInput(history: string[], setHistory: Dispatch<SetStateAction<string[]>>)
@@ -16,28 +16,14 @@ export function REPLInput(props: REPLInputProps) {
   const [commandString, setCommandString] = useState<string>("");
   // TODO WITH TA : add a count state
   const [count, setCount] = useState<number>(0);
-  const [history, setHistory] = useState<string[]>([]);
-  // TODO WITH TA: build a handleSubmit function called in button onClick
-  // TODO: Once it increments, try to make it push commands... Note that you can use the `...` spread syntax to copy what was there before
-  // add to it with new commands.
-  /**
-   * We suggest breaking down this component into smaller components, think about the individual pieces
-   * of the REPL and how they connect to each other...
-   */
-  // function handleSubmit(commandString: string) {
-  //   setCount(count + 1);
-  //   // put commandString with anything before in the props.history
-  //   props.setHistory([...props.history, commandString]);
-  //   // clean up the input the box afterwards
-  //   setCommandString("");
-  // }
+
   function handleSubmit(commandString: string) {
     const [command, ...args] = commandString.split(' ');
     try {
         const output = commandRegistry.executeCommand(command, args);
-        props.setHistory([...props.history, `Output: ${output}`]);
+        props.setHistory([...props.history, `${output}`]);
     } catch (error: any) {
-        props.setHistory([...props.history, `Error: ${error.message}`]);
+        props.setHistory([...props.history, `${error.message}`]);
     }
     setCommandString("");
   }
