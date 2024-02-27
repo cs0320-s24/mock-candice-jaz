@@ -27,7 +27,8 @@
     "serve": "vite preview",
     "test:unit": "vitest run",
     "test:e2e": "playwright test",
-    "test": "npm run test:unit && npm run test:e2e"
+    "test": "npm run test:unit && npm run test:e2e",
+    "dev": "vite --port 8000"
   },
   "eslintConfig": {
     "extends": [
