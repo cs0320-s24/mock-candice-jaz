@@ -1,6 +1,7 @@
 import "../styles/main.css";
 import { Dispatch, SetStateAction, useState } from "react";
 import { ControlledInput } from "./ControlledInput";
+import { commandRegistry } from "../utils/commandRegistry";
 
 interface REPLInputProps {
   // TODO: Fill this with desired props... Maybe something to keep track of the submitted commands\
@@ -23,11 +24,21 @@ export function REPLInput(props: REPLInputProps) {
    * We suggest breaking down this component into smaller components, think about the individual pieces
    * of the REPL and how they connect to each other...
    */
+  // function handleSubmit(commandString: string) {
+  //   setCount(count + 1);
+  //   // put commandString with anything before in the props.history
+  //   props.setHistory([...props.history, commandString]);
+  //   // clean up the input the box afterwards
+  //   setCommandString("");
+  // }
   function handleSubmit(commandString: string) {
-    setCount(count + 1);
-    // put commandString with anything before in the props.history
-    props.setHistory([...props.history, commandString]);
-    // clean up the input the box afterwards
+    const [command, ...args] = commandString.split(' ');
+    try {
+        const output = commandRegistry.executeCommand(command, args);
+        props.setHistory([...props.history, `Output: ${output}`]);
+    } catch (error: any) {
+        props.setHistory([...props.history, `Error: ${error.message}`]);
+    }
     setCommandString("");
   }
 
