@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
-import REPLInput from './components/REPLInput';
-import REPLHistory from './components/REPLHistory';
+import { useState } from 'react';
+import '../styles/App.css';
+import { LoginButton } from './LoginButton';
+import REPL from './REPL';
 
-interface CommandHistory {
-  command: string;
-  output: string;
-}
-
+/**
+ * This is the highest level component!
+ */
 function App() {
-  const [mode, setMode] = useState<'brief' | 'verbose'>('brief');
-  const [history, setHistory] = useState<CommandHistory[]>([]);
-
+  // Type script as its declaring and intializing variables?
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+ 
+  // Javascript as thats what we need to return
   return (
     <div className="App">
-      <REPLInput setHistory={setHistory} setMode={setMode} mode={mode} />
-      <REPLHistory history={history} mode={mode} />
+      <p className="App-header">
+        <h1>Mock</h1>
+        <LoginButton isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      </p>
+
+      { isLoggedIn && <REPL /> }
     </div>
   );
 }

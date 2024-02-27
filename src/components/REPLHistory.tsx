@@ -1,22 +1,17 @@
-import "../styles/main.css"; // Importing CSS for styling the REPLHistory component
+import "../styles/main.css";
 
-// Defining the props structure for the REPLHistory component
 interface REPLHistoryProps {
-  history: string[]; // Array of command history strings
-  mode: "brief" | "verbose"; // Mode of operation, can be either 'brief' or 'verbose'
+  // TODO: Fill with some shared state tracking all the pushed commands
+  history: string[];
 }
-// Functional component to display the history of commands
-function REPLHistory(props: REPLHistoryProps) {
+export function REPLHistory(props: REPLHistoryProps) {
   return (
     <div className="repl-history">
-      {" "}
-      {/* Container for the command history display */}
-      {/* Iterating over each command in the history array and displaying it */}
+      {/* This is where command history will go */}
+      {/* TODO: To go through all the pushed commands... try the .map() function! */}
       {props.history.map((command, index) => (
-        <p key={index}>{command}</p> // Displaying each command in a paragraph tag
+        <p>{command}</p>
       ))}
     </div>
   );
 }
-
-export default REPLHistory;

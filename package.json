@@ -1,7 +1,7 @@
 {
-  "name": "candidate-jaz-mock",
+  "name": "cs32-sprint3-mock",
   "version": "22.2.0",
-  "description": "Brown CSCI0320 mock",
+  "description": "Brown CSCI0320 Sprint 3 Mock",
   "license": "UNLICENSED",
   "dependencies": {
     "react": "^18.1.0",
