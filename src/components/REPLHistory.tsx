@@ -17,7 +17,12 @@ export function REPLHistory(props: REPLHistoryProps) {
       {props.history.map((item, index) => {
         if (isArrayOfArrays(item)) {
           return (
-            <table key={index} className="centered-table">
+            <div className="inline-container">
+              {
+                props.isBrief? null:
+                  <p className="inline-output">{props.commandHistory[index] as string}</p>
+              }
+              <table key={index} className="centered-table">
               <tbody>
                 {item.map((row, rowIndex) => (
                   <tr key={rowIndex}>
@@ -28,6 +33,8 @@ export function REPLHistory(props: REPLHistoryProps) {
                 ))}
               </tbody>
             </table>
+            </div>
+            
           );
         } else {
           // Ensure item is treated as a string here
@@ -35,9 +42,9 @@ export function REPLHistory(props: REPLHistoryProps) {
             <div>
               {
                 props.isBrief? null:
-                  <p className="inline-output">{props.commandHistory[index] as string}</p>
+                  <p  className="inline-output">{props.commandHistory[index] as string}</p>
               }
-              <p key={index} className="inline-output">{props.history[index] as string}</p>
+              <p key={index}  className="inline-output">{props.history[index] as string}</p>
             </div>
           );
         }
