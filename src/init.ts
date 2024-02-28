@@ -1,5 +1,7 @@
 import { commandRegistry } from './utils/commandRegistry';
 import { mockedFilePathsToData } from './MockedJson';
+import { useState } from "react";
+
 
 
 // Register all the commands the webapp needs on startup
@@ -8,8 +10,8 @@ export function registerCommands() {
     commandRegistry.registerCommand('sum', (args) => args.map(Number).reduce((acc, curr) => acc + curr, 0).toString());
 
     // New code below
+    // let currentCSV: string[][] | null = null;
     let currentCSV: string[][] | null = null;
-
     commandRegistry.registerCommand('loadcsv', (args) => {
         const filePath = args[0];
         if (!mockedFilePathsToData[filePath]) {
