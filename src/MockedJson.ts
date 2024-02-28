@@ -12,7 +12,7 @@ export type MockedSearchResults = {
 };
 
 // with header
-export const exampleCSV1 = [
+export const peopleCSV = [
   ["State", "Type", "Earnings", "Workers", "Disparity", "Percent"],
   ["RI", "White", "$1,058.47", "395773.6521", "$1.00", "75%"],
   ["RI", "Black", "$770.26", "30424.80376", "$0.73", "6%"],
@@ -23,7 +23,7 @@ export const exampleCSV1 = [
 ];
 
 // no header
-export const exampleCSV2 = [
+export const starCSV = [
   ["0", "Sol", "0", "0", "0"],
   ["1", "Andreas", "282.43485", "0.00449", "5.36884"],
   ["2", "Rory", "43.04329", "0.00285", "-15.24144"],
@@ -35,13 +35,27 @@ export const exampleCSV2 = [
 ];
 
 export const mockedSearchResultsByCSV: MockedSearchResults = {
-  "/fakepath/to/csv1.csv": {
-    "search Type White": [["RI", "White", "$1,058.47", "395773.6521", "$1.00", "75%"]],
-    "search Type Pink": "No results found",
+  "/fakepath/to/peopleCSV.csv": {
+    "County Providence": "Column 'County' does not exist",
+    "Race White": [["RI", "White", "$1,058.47", "395773.6521", "$1.00", "75%"]],
+    "Race Pink": "No results found for Race = Pink",
+    "State RI": [["RI", "White", "$1,058.47", "395773.6521", "$1.00", "75%"],
+                ["RI", "Black", "$770.26", "30424.80376", "$0.73", "6%"],
+                ["RI", "Native American/American Indian", "$471.07", "2315.505646", "$0.45", "0%"],
+                ["RI", "Asian-Pacific Islander", "$1,080.09", "18956.71657", "$1.02", "4%"],
+                ["RI", "Hispanic/Latino", "$673.14", "74596.18851", "$0.64", "14%"],
+                ["RI", "Multiracial", "$971.89", "8883.049171", "$0.92", "2%"]],
+    "0 RI": [["RI", "White", "$1,058.47", "395773.6521", "$1.00", "75%"],
+            ["RI", "Black", "$770.26", "30424.80376", "$0.73", "6%"],
+            ["RI", "Native American/American Indian", "$471.07", "2315.505646", "$0.45", "0%"],
+            ["RI", "Asian-Pacific Islander", "$1,080.09", "18956.71657", "$1.02", "4%"],
+            ["RI", "Hispanic/Latino", "$673.14", "74596.18851", "$0.64", "14%"],
+            ["RI", "Multiracial", "$971.89", "8883.049171", "$0.92", "2%"]]
   },
-  "/fakepath/to/csv2.csv": {
-    "search Sol Andreas": [["1", "Andreas", "282.43485", "0.00449", "5.36884"]],
-    "search Sol Jazlyn": "No results found",
+  "/fakepath/to/starCSV.csv": {
+    "1 Sol": [["0", "Sol", "0", "0", "0"],],
+    "1 Jazlyn": "No results found",
+    "Name Jazlyn": "Column name 'Name' doesn't exist",
   },
 };
 
@@ -49,16 +63,16 @@ export function getMockedSearchResultsForCSV(csvPath: string, query: string): st
   if (!mockedSearchResultsByCSV.hasOwnProperty(csvPath)) {
     return "Error: CSV path not recognized";
   }
-  const csvResults = mockedSearchResultsByCSV[csvPath];
+  const csvQueries = mockedSearchResultsByCSV[csvPath];
   
-  if (!csvResults.hasOwnProperty(query.trim())) {
-    return "Error: Query not recognized";
+  if (!csvQueries.hasOwnProperty(query)) {
+    return "Error: Query not recognized by mocked search data";
   }
-  return csvResults[query.trim()];
+  return csvQueries[query];
 }
 
 // Apply the type to your object otherwise TypeScript error
 export const mockedFilePathsToData: MockedFilePathsToData = {
-  "/fakepath/to/csv1.csv": exampleCSV1,
-  "/fakepath/to/csv2.csv": exampleCSV2,
+  "/fakepath/to/peopleCSV.csv": peopleCSV,
+  "/fakepath/to/starCSV.csv": starCSV,
 };

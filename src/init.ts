@@ -30,8 +30,12 @@ export function registerCommands() {
     });
 
     commandRegistry.registerCommand('search', (args) => {
-        if (!currentCSV || currentFilepath == null) {
+        console.log('Search args:', args); // This will print the args to the console
+        if (currentFilepath == null) {
             return 'Error: No CSV loaded';
+        }
+        if (!currentCSV) {
+            return 'Error: CSV is empty'
         }
         const searchQuery = args.join(' '); // Combine args into a single search query string
         const searchResults = getMockedSearchResultsForCSV(currentFilepath, searchQuery);

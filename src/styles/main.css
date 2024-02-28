@@ -44,3 +44,9 @@ button{
     justify-content: center;
     margin: auto;
 }
+
+.view-text {
+    /* Adjust the margin-bottom to bring it closer to the table below */
+    margin-bottom: 10px; /* or any value that suits your design */
+    /* Other styles to align it properly */
+}
