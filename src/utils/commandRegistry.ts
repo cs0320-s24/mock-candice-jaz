@@ -4,6 +4,7 @@ export interface REPLFunction {
 
 class CommandRegistry {
     private commands = new Map<string, REPLFunction>();
+    private isBrief = true;
 
     registerCommand(name: string, func: REPLFunction) {
         this.commands.set(name, func);
@@ -15,6 +16,15 @@ class CommandRegistry {
             throw new Error(`Command "${name}" not found`);
         }
         return func(args);
+    }
+
+    switchMode() {
+        this.isBrief = !this.isBrief;
+        return 0;
+    }
+
+    getMode() {
+        return this.isBrief; 
     }
 }
 
