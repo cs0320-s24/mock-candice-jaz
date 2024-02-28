@@ -5,6 +5,12 @@ export type MockedFilePathsToData = {
   [key: string]: string[][];
 };
 
+export type MockedSearchResults = {
+  [csvPath: string]: {
+    [query: string]: (string | string[][]);
+  };
+};
+
 // with header
 export const exampleCSV1 = [
   ["State", "Type", "Earnings", "Workers", "Disparity", "Percent"],
@@ -27,6 +33,29 @@ export const exampleCSV2 = [
   ["6", "Araceli", "53.06535", "0.0168", "3.66089"],
   ["7", "Casey", "52.95794", "0.02084", "19.31343"],
 ];
+
+export const mockedSearchResultsByCSV: MockedSearchResults = {
+  "/fakepath/to/csv1.csv": {
+    "search Type White": [["RI", "White", "$1,058.47", "395773.6521", "$1.00", "75%"]],
+    "search Type Pink": "No results found",
+  },
+  "/fakepath/to/csv2.csv": {
+    "search Sol Andreas": [["1", "Andreas", "282.43485", "0.00449", "5.36884"]],
+    "search Sol Jazlyn": "No results found",
+  },
+};
+
+export function getMockedSearchResultsForCSV(csvPath: string, query: string): string | string[][] {
+  if (!mockedSearchResultsByCSV.hasOwnProperty(csvPath)) {
+    return "Error: CSV path not recognized";
+  }
+  const csvResults = mockedSearchResultsByCSV[csvPath];
+  
+  if (!csvResults.hasOwnProperty(query.trim())) {
+    return "Error: Query not recognized";
+  }
+  return csvResults[query.trim()];
+}
 
 // Apply the type to your object otherwise TypeScript error
 export const mockedFilePathsToData: MockedFilePathsToData = {
