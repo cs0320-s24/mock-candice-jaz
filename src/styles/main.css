@@ -29,3 +29,18 @@ button{
     margin: auto;
     display: block;
 }
+.centered-table {
+    margin-left: 40px;
+    margin-right: auto;
+}
+.inline-output {
+    display: inline-block; /* Makes the element inline, but block-level styling can be applied */
+    margin-right: 20px; 
+    margin-left: 40px;/* Adds space between the elements, adjust as needed */
+}
+
+.inline-container {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}

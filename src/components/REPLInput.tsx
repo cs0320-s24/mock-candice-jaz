@@ -6,7 +6,11 @@ import { commandRegistry } from "../utils/commandRegistry";
 interface REPLInputProps {
   // TODO: Fill this with desired props... Maybe something to keep track of the submitted commands\
   history: (string | string[])[];
-  setHistory: Dispatch<SetStateAction<(string | string[])[]>>;
+  commandHistory: (string | string[])[];
+  setHistory: Dispatch<SetStateAction<(string | string[][])[]>>;
+  setCommandHistory: Dispatch<SetStateAction<string[]>>;
+  isBrief: boolean;
+  setIsBrief: Dispatch<SetStateAction<boolean>>;
 }
 // You can use a custom interface or explicit fields or both! An alternative to the current function header might be:
 // REPLInput(history: string[], setHistory: Dispatch<SetStateAction<string[]>>)
@@ -19,12 +23,21 @@ export function REPLInput(props: REPLInputProps) {
 
   function handleSubmit(commandString: string) {
     const [command, ...args] = commandString.split(' ');
-    try {
+    if (command=='mode'){
+      props.setIsBrief(!props.isBrief);
+      const currMode = !props.isBrief? 'Brief':'Verbose';
+      const modeOutput =  'Change output mode to ' + currMode;
+      props.setHistory([...props.history, modeOutput]);
+    } else {
+      try {
         const output = commandRegistry.executeCommand(command, args);
-        props.setHistory([...props.history, `${output}`]);
-    } catch (error: any) {
+        props.setHistory([...props.history, output]);
+      } catch (error: any) {
         props.setHistory([...props.history, `${error.message}`]);
+      }
+
     }
+    props.setCommandHistory([...props.commandHistory, commandString])
     setCommandString("");
   }
 
