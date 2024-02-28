@@ -3,6 +3,8 @@ import "../styles/main.css";
 interface REPLHistoryProps {
   // Adjust the type to include both strings and arrays of strings
   history: (string | string[])[];
+  commandHistory: (string | string[])[];
+  isBrief: boolean;
 }
 
 export function REPLHistory(props: REPLHistoryProps) {
@@ -15,7 +17,7 @@ export function REPLHistory(props: REPLHistoryProps) {
       {props.history.map((item, index) => {
         if (isArrayOfArrays(item)) {
           return (
-            <table key={index} class="centered-table">
+            <table key={index} className="centered-table">
               <tbody>
                 {item.map((row, rowIndex) => (
                   <tr key={rowIndex}>
@@ -29,7 +31,15 @@ export function REPLHistory(props: REPLHistoryProps) {
           );
         } else {
           // Ensure item is treated as a string here
-          return <p key={index}>{item as string}</p>;
+          return (
+            <div>
+              {
+                props.isBrief? null:
+                  <p className="inline-output">{props.commandHistory[index] as string}</p>
+              }
+              <p key={index} className="inline-output">{props.history[index] as string}</p>
+            </div>
+          );
         }
       })}
     </div>

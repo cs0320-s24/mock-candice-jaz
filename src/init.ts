@@ -50,9 +50,4 @@ export function registerCommands() {
         );
         return searchResults.length > 0 ? searchResults : 'No results found';
     });
-    commandRegistry.registerCommand('mode', () => {
-        commandRegistry.switchMode();
-        const currMode = commandRegistry.getMode()? 'Brief':'Verbose';
-        return 'Change output mode to ' + currMode; 
-    });
 }

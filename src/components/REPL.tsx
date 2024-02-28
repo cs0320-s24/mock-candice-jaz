@@ -16,15 +16,17 @@ export default function REPL() {
   // TODO: Add some kind of shared state that holds all the commands submitted.
   // use the same history so when REPLInput history and REPLHistory's history are sync'ed
   const [history, setHistory] = useState<string[]>([]);
+  const [commandHistory, setCommandHistory] = useState<string[]>([]);
+  const [isBrief, setIsBrief] = useState(true);
 
   return (
     <div className="repl">
       {/*This is where your REPLHistory might go... You also may choose to add it within your REPLInput 
       component or somewhere else depending on your component organization. What are the pros and cons of each? */}
       {/* TODO: Update your REPLHistory and REPLInput to take in new shared state as props */}
-      <REPLHistory history={history} />
+      <REPLHistory history={history} commandHistory={commandHistory} isBrief={isBrief}/>
       <hr></hr>
-      <REPLInput history={history} setHistory={setHistory} />
+      <REPLInput history={history} setHistory={setHistory} commandHistory={commandHistory} setCommandHistory={setCommandHistory} isBrief={isBrief} setIsBrief={setIsBrief} />
     </div>
   );
 }
