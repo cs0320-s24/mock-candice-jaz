@@ -13,7 +13,7 @@ export type MockedSearchResults = {
 
 // with header
 export const peopleCSV = [
-  ["State", "Type", "Earnings", "Workers", "Disparity", "Percent"],
+  ["State", "Race", "Earnings", "Workers", "Disparity", "Percent"],
   ["RI", "White", "$1,058.47", "395773.6521", "$1.00", "75%"],
   ["RI", "Black", "$770.26", "30424.80376", "$0.73", "6%"],
   ["RI", "Native American/American Indian", "$471.07", "2315.505646", "$0.45", "0%"],
