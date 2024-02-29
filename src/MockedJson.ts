@@ -139,8 +139,7 @@ export function getMockedSearchResultsForCSV(csvPath: string, query: string): st
 export const mockedFilePathsToData: MockedFilePathsToData = {
   "/fakepath/to/peopleCSV.csv": peopleCSV,
   "/fakepath/to/starCSV.csv": starCSV,
-  "/fakepath/to/protectedCSV.csv": protectedCSV,
-  "/xxx/to/xxx.csv":"Error: illegal file path: /xxx/to/xxx.csv. Provided file should be under ./fakepath/to/.",
+  "/protectedpath/to/protectedCSV.csv":"Error: protected file path: /protectedpath/to/protectedCSV.csv. Provided file should be under ./fakepath/to/.",
   "/fakepath/to/peopleCSVNoHeader.csv": peopleCSVNoHeader,
   //a csv example with no header. currently we don't assume whether user knows if the csv has header or not. In the future the logic of frontend reaching backend will figure this out. 
   "/fakepath/to/malformed.csv": "Error: the csv provided is malformed.",
