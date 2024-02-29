@@ -1,8 +1,8 @@
 // MockedJson.ts
 
 // Define the type for the data structure
-export type MockedFilePathsToData = {
-  [key: string]: string[][];
+export type MockedFilePathsToData = {//mock behavior of loadcsv endpoint in the backend
+  [key: string]: string|string[][];
 };
 
 export type MockedSearchResults = {
@@ -14,6 +14,15 @@ export type MockedSearchResults = {
 // Mock CSV data with headers
 export const peopleCSV = [
   ["State", "Race", "Earnings", "Workers", "Disparity", "Percent"],
+  ["RI", "White", "$1,058.47", "395773.6521", "$1.00", "75%"],
+  ["RI", "Black", "$770.26", "30424.80376", "$0.73", "6%"],
+  ["RI", "Native American/American Indian", "$471.07", "2315.505646", "$0.45", "0%"],
+  ["RI", "Asian-Pacific Islander", "$1,080.09", "18956.71657", "$1.02", "4%"],
+  ["RI", "Hispanic/Latino", "$673.14", "74596.18851", "$0.64", "14%"],
+  ["RI", "Multiracial", "$971.89", "8883.049171", "$0.92", "2%"],
+];
+
+export const peopleCSVNoHeader = [
   ["RI", "White", "$1,058.47", "395773.6521", "$1.00", "75%"],
   ["RI", "Black", "$770.26", "30424.80376", "$0.73", "6%"],
   ["RI", "Native American/American Indian", "$471.07", "2315.505646", "$0.45", "0%"],
@@ -131,4 +140,10 @@ export const mockedFilePathsToData: MockedFilePathsToData = {
   "/fakepath/to/peopleCSV.csv": peopleCSV,
   "/fakepath/to/starCSV.csv": starCSV,
   "/fakepath/to/protectedCSV.csv": protectedCSV,
+  "/xxx/to/xxx.csv":"Error: illegal file path: /xxx/to/xxx.csv. Provided file should be under ./fakepath/to/.",
+  "/fakepath/to/peopleCSVNoHeader.csv": peopleCSVNoHeader,
+  //a csv example with no header. currently we don't assume whether user knows if the csv has header or not. In the future the logic of frontend reaching backend will figure this out. 
+  "/fakepath/to/malformed.csv": "Error: the csv provided is malformed.",
 };
+
+

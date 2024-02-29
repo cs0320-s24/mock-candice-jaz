@@ -3,18 +3,24 @@ import { mockedFilePathsToData, getMockedSearchResultsForCSV } from '../MockedJs
 
 // Assuming these variables are part of your command's state
 let currentFilepath: string | null = null;
-let currentCSV: string[][] | null = null;
+let currentCSV: string|string[][] | null = null;
 
 // Load CSV Command
 commandRegistry.registerCommand('loadcsv', (args) => {
-    currentFilepath = args[0];
-    if (args.length==0) {
+    currentCSV = null;//everytime user enters loadcsv, we clear out currentCSV cache
+    if (args.length===0) {
         return 'Error: No file path was provided for loadcsv'
     }
+    currentFilepath = args[0];
     if (!mockedFilePathsToData[currentFilepath]) {
         return 'Error: File not found';
     }
-    currentCSV = mockedFilePathsToData[currentFilepath];
+
+    let output = mockedFilePathsToData[currentFilepath];
+    if (typeof output === 'string') { //find an error,
+        return output;
+    }
+    currentCSV = output;
     return 'CSV loaded successfully';
 });
 
@@ -28,11 +34,12 @@ commandRegistry.registerCommand('view', () => {
 
 // Search CSV Command
 commandRegistry.registerCommand('search', (args) => {
-    if (currentFilepath == null) {
-        return 'Error: No CSV loaded';
-    }
-    if (args.length==0) {
+    if (args.length===0) {
         return 'Error: No query was provided for search'
+    }
+    
+    if (currentFilepath === null) {
+        return 'Error: No CSV loaded';
     }
     if (!currentCSV) {
         return 'Error: CSV is empty';
