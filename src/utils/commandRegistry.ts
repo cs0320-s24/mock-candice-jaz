@@ -12,7 +12,7 @@ class CommandRegistry {
     executeCommand(name: string, args: Array<string>): String | String[][] {
         const func = this.commands.get(name);
         if (!func) {
-            throw new Error(`Command "${name}" not found`);
+            return `Error: Command "${name}" not found`;
         }
         return func(args);
     }

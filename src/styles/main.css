@@ -30,7 +30,7 @@ button{
     display: block;
 }
 .centered-table {
-    margin-left: 40px;
+    margin-left: auto;
     margin-right: auto;
 }
 .inline-output {
@@ -43,4 +43,37 @@ button{
     display: flex;
     justify-content: center;
     margin: auto;
+}
+
+.view-text {
+    /* Adjust the margin-bottom to bring it closer to the table below */
+    margin-bottom: 10px; /* or any value that suits your design */
+    /* Other styles to align it properly */
+}
+
+.history-entry {
+    margin-bottom: 10px; /* Adjust as needed for spacing */
+}
+
+.command-line {
+/* Styles to align the command text */
+}
+
+.output-line {
+/* Styles to align the output text */
+}
+
+.inline-output {
+display: inline; /* Ensures that non-table array elements are displayed inline */
+}
+
+.centered-table td {
+    border: 1px solid #ccc; /* Adjust color and width as needed */
+    padding: 5px; /* Adjust padding as needed */
+  }
+  
+.centered-table {
+border-collapse: collapse; /* Ensures that the border is collapsed into a single border */
+width: 100%; /* Adjust width as needed */
+margin-top: 10px; /* Adds space between the "Output:" label and the table */
 }
