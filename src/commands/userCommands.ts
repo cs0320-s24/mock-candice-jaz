@@ -8,6 +8,9 @@ let currentCSV: string[][] | null = null;
 // Load CSV Command
 commandRegistry.registerCommand('loadcsv', (args) => {
     currentFilepath = args[0];
+    if (args.length==0) {
+        return 'Error: No file path was provided for loadcsv'
+    }
     if (!mockedFilePathsToData[currentFilepath]) {
         return 'Error: File not found';
     }
@@ -27,6 +30,9 @@ commandRegistry.registerCommand('view', () => {
 commandRegistry.registerCommand('search', (args) => {
     if (currentFilepath == null) {
         return 'Error: No CSV loaded';
+    }
+    if (args.length==0) {
+        return 'Error: No query was provided for search'
     }
     if (!currentCSV) {
         return 'Error: CSV is empty';
