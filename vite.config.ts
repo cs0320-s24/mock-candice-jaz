@@ -11,6 +11,7 @@ export default defineConfig(() => {
       port: 8000,
     },
     test: {
+      include: ['tests/unit/**/*.spec.ts'],
       exclude: ["**/e2e/**", "**/node_modules/**"],
     },
   };

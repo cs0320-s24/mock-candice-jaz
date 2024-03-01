@@ -16,6 +16,10 @@ class CommandRegistry {
         }
         return func(args);
     }
+
+    clearCommands() {
+        this.commands.clear();
+    }
 }
 
 export const commandRegistry = new CommandRegistry();
