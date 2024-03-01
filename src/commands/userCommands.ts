@@ -36,6 +36,13 @@ export function registerUserCommands() {
     return currentCSV;
   });
 
+  commandRegistry.registerCommand("mode", () => {
+    commandRegistry.switchMode();
+    const currMode = commandRegistry.getIsBrief() ? "Brief" : "Verbose";
+    const modeOutput = "Change output mode to " + currMode;
+    return modeOutput;
+  });
+
   // Search CSV Command
   commandRegistry.registerCommand("search", (args) => {
     if (args.length === 0) {
@@ -45,7 +52,7 @@ export function registerUserCommands() {
     if (currentFilepath === null) {
       return "Error: No CSV loaded";
     }
-    if (!currentCSV) {
+    if (currentCSV?.length === 0) {
       return "Error: CSV is empty";
     }
     const searchQuery = args.join(" ");
