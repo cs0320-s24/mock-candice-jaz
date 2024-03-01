@@ -1,18 +1,29 @@
 import "../styles/main.css";
 import { Dispatch, SetStateAction } from "react";
 
-// Remember that parameter names don't necessarily need to overlap;
-// I could use different variable names in the actual function.
+/**
+ * Defines the properties required by the ControlledInput component.
+ * 
+ * @param value The current value of the input.
+ * @param setValue A React dispatch function to update the state of the input value.
+ * @param ariaLabel Accessibility label for the input element.
+ */
 interface ControlledInputProps {
   value: string;
-  // This type comes from React+TypeScript. VSCode can suggest these.
-  //   Concretely, this means "a function that sets a state containing a string"
   setValue: Dispatch<SetStateAction<string>>;
   ariaLabel: string;
 }
 
-// Input boxes contain state. We want to make sure React is managing that state,
-//   so we have a special component that wraps the input box.
+/**
+ * A controlled input component that encapsulates an input element to manage its state within React.
+ * 
+ * This component ensures that the input box's state is controlled by React, allowing for more predictable
+ * data flow and state management. It accepts a value, a function to update this value, and an ariaLabel
+ * for accessibility purposes.
+ * 
+ * @param props An object containing the value, setValue function, and ariaLabel for the input.
+ * @returns A text input element that is controlled by React state.
+ */
 export function ControlledInput({
   value,
   setValue,

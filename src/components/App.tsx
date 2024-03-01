@@ -3,23 +3,34 @@ import "../styles/App.css";
 import { LoginButton } from "./LoginButton";
 import REPL from "./REPL";
 import { registerCommands } from "../init";
+
 /**
- * This is the highest level component!
+ * Props for RegisterCommand component.
+ * 
+ * @param registerCommands Function to register commands for the application.
  */
 interface RegisterCommandProps {
   registerCommands: () => void;
 }
 
+/**
+ * Component responsible for registering commands.
+ * 
+ * @param props Contains a function to register commands.
+ */
 const RegisterCommand: React.FC<RegisterCommandProps> = (props) => {
   props.registerCommands();
 };
 
+/**
+ * The main application component.
+ * 
+ * This component manages the login state and renders the application's main interface,
+ * including the login button and, conditionally, the REPL component if the user is logged in.
+ */
 function App() {
-  // Type script as its declaring and intializing variables?
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  // Javascript as thats what we need to return
-  //the div that  will rerender once isLoggedIn is changed
   return (
     <div className="App">
       <p className="App-header">

@@ -3,8 +3,17 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { ControlledInput } from "./ControlledInput";
 import { commandRegistry } from "../utils/commandRegistry";
 
+/**
+ * Defines the properties required by the REPLInput component.
+ * 
+ * @param history An array of previously submitted commands or command outputs.
+ * @param commandHistory An array of command strings that have been submitted.
+ * @param setHistory A function to update the history state.
+ * @param setCommandHistory A function to update the command history state.
+ * @param isBrief A boolean indicating if the output should be displayed in brief mode.
+ * @param setIsBrief A function to toggle the brief mode state.
+ */
 interface REPLInputProps {
-  // TODO: Fill this with desired props... Maybe something to keep track of the submitted commands\
   history: (string | string[])[];
   commandHistory: (string | string[])[];
   setHistory: Dispatch<SetStateAction<(string | string[][])[]>>;
@@ -12,15 +21,30 @@ interface REPLInputProps {
   isBrief: boolean;
   setIsBrief: Dispatch<SetStateAction<boolean>>;
 }
-// You can use a custom interface or explicit fields or both! An alternative to the current function header might be:
-// REPLInput(history: string[], setHistory: Dispatch<SetStateAction<string[]>>)
+
+/**
+ * A component for inputting commands in the REPL interface.
+ * 
+ * This component manages the input field for commands, handling the submission and state updates
+ * for both the command and its output in the history. It utilizes the commandRegistry to execute
+ * commands and manage the output.
+ * 
+ * @param props The properties required by the REPLInput component.
+ * @returns A div element containing the input field and submission button.
+ */
 export function REPLInput(props: REPLInputProps) {
-  // Remember: let React manage state in your webapp.
-  // Manages the contents of the input box
   const [commandString, setCommandString] = useState<string>("");
-  // TODO WITH TA : add a count state
   const [count, setCount] = useState<number>(0);
 
+  /**
+   * Handles the submission of a command.
+   * 
+   * This function splits the input string into a command and its arguments, executes the command
+   * using the commandRegistry, and updates the history and command history states with the output
+   * or error message. It also resets the input field and updates the brief mode state.
+   * 
+   * @param commandString The command string input by the user.
+   */
   function handleSubmit(commandString: string) {
     const [command, ...args] = commandString.split(" ");
     try {
@@ -36,10 +60,6 @@ export function REPLInput(props: REPLInputProps) {
 
   return (
     <div className="repl-input">
-      {/* This is a comment within the JSX. Notice that it's a TypeScript comment wrapped in
-            braces, so that React knows it should be interpreted as TypeScript */}
-      {/* I opted to use this HTML tag; you don't need to. It structures multiple input fields
-            into a single unit, which makes it easier for screenreaders to navigate. */}
       <fieldset>
         <legend>Enter a command:</legend>
         <ControlledInput
@@ -48,8 +68,6 @@ export function REPLInput(props: REPLInputProps) {
           ariaLabel={"Command input"}
         />
       </fieldset>
-      {/* TODO WITH TA: Build a handleSubmit function that increments count and displays the text in the button */}
-      {/* TODO: Currently this button just counts up, can we make it push the contents of the input box to the history?*/}
       <button onClick={() => handleSubmit(commandString)}>Query! </button>
     </div>
   );

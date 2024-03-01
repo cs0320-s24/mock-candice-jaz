@@ -1,20 +1,49 @@
 import "../styles/main.css";
 
+/**
+ * Defines the properties required by the REPLHistory component.
+ * 
+ * @param history An array of command outputs, each can be a string, an array of strings, or an array of array of strings.
+ * @param commandHistory An array of commands entered by the user.
+ * @param isBrief A boolean indicating if only the output should be displayed without the command.
+ */
 interface REPLHistoryProps {
-  // Adjust the type to include both strings and arrays of strings
   history: (string | string[])[];
   commandHistory: (string | string[])[];
   isBrief: boolean;
 }
 
+/**
+ * Renders the history of commands and their outputs in the REPL interface.
+ * 
+ * This component displays each command and its corresponding output. The output can be a single line, 
+ * an array of lines, or a table represented by an array of arrays of strings. The display can be toggled 
+ * between brief and full mode, where brief mode only shows the outputs.
+ * 
+ * @param props The properties required by the REPLHistory component.
+ * @returns A div element containing the history of commands and outputs.
+ */
 export function REPLHistory(props: REPLHistoryProps) {
-    // Adjust the helper function to correctly type check for an array of strings
+    /**
+     * Checks if the provided item is an array of arrays of strings.
+     * 
+     * @param item The item to check.
+     * @returns True if the item is an array of arrays of strings, false otherwise.
+     */
     const isArrayOfArrays = (item: any): item is string[][] => 
     Array.isArray(item) && item.every(row => Array.isArray(row) && row.every(cell => typeof cell === 'string'));
 
+    /**
+     * Renders the output based on its type.
+     * 
+     * This function checks if the output is a table, an array of lines, or a single line, and renders it accordingly.
+     * 
+     * @param output The output to render.
+     * @param index The index of the output in the history array.
+     * @returns A JSX element representing the output.
+     */
     const renderOutput = (output: string | string[] | string[][], index: number) => {
       if (isArrayOfArrays(output)) {
-        // For table outputs, return the table element
         return (
           <>
             {!props.isBrief && <div>Output:</div>}
@@ -32,7 +61,6 @@ export function REPLHistory(props: REPLHistoryProps) {
           </>
         );
       } else if (Array.isArray(output)) {
-        // For array outputs, return each line in a new div
         return (
           <>
             {!props.isBrief && <div>Output:</div>}
@@ -40,7 +68,6 @@ export function REPLHistory(props: REPLHistoryProps) {
           </>
         );
       } else {
-        // For single line outputs, return the line next to "Output:"
         return <>{!props.isBrief && <span>Output: </span>}{output}</>;
       }
     };
