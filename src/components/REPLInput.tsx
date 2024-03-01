@@ -22,22 +22,15 @@ export function REPLInput(props: REPLInputProps) {
   const [count, setCount] = useState<number>(0);
 
   function handleSubmit(commandString: string) {
-    const [command, ...args] = commandString.split(' ');
-    if (command=='mode'){
-      props.setIsBrief(!props.isBrief);
-      const currMode = !props.isBrief? 'Brief':'Verbose';
-      const modeOutput =  'Change output mode to ' + currMode;
-      props.setHistory([...props.history, modeOutput]);
-    } else {
-      try {
-        const output = commandRegistry.executeCommand(command, args);
-        props.setHistory([...props.history, output]);
-      } catch (error: any) {
-        props.setHistory([...props.history, `${error.message}`]);
-      }
-
+    const [command, ...args] = commandString.split(" ");
+    try {
+      const output = commandRegistry.executeCommand(command, args);
+      props.setHistory([...props.history, output]);
+    } catch (error: any) {
+      props.setHistory([...props.history, `${error.message}`]);
     }
-    props.setCommandHistory([...props.commandHistory, commandString])
+    props.setIsBrief(commandRegistry.getIsBrief());
+    props.setCommandHistory([...props.commandHistory, commandString]);
     setCommandString("");
   }
 
@@ -57,9 +50,7 @@ export function REPLInput(props: REPLInputProps) {
       </fieldset>
       {/* TODO WITH TA: Build a handleSubmit function that increments count and displays the text in the button */}
       {/* TODO: Currently this button just counts up, can we make it push the contents of the input box to the history?*/}
-      <button onClick={() => handleSubmit(commandString)}>
-        Query!{" "}
-      </button>
+      <button onClick={() => handleSubmit(commandString)}>Query! </button>
     </div>
   );
 }
