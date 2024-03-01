@@ -45,7 +45,7 @@ export function registerUserCommands() {
     if (currentFilepath === null) {
       return "Error: No CSV loaded";
     }
-    if (!currentCSV) {
+    if (currentCSV?.length === 0) {
       return "Error: CSV is empty";
     }
     const searchQuery = args.join(" ");
