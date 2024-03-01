@@ -239,6 +239,7 @@ export function getMockedSearchResultsForCSV(
 // Apply the type to your object otherwise TypeScript error
 export const mockedFilePathsToData: MockedFilePathsToData = {
   "/fakepath/to/peopleCSV.csv": peopleCSV,
+  "/fakepath/to/empty.csv": [],
   "/fakepath/to/starCSV.csv": starCSV,
   "/protectedpath/to/protectedCSV.csv":
     "Error: protected file path: /protectedpath/to/protectedCSV.csv. Provided file should be under ./fakepath/to/.",
