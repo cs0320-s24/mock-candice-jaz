@@ -81,7 +81,7 @@ export function REPLHistory(props: REPLHistoryProps) {
           return (
             <div key={index} className="history-entry">
               {!props.isBrief && (
-                <div className="command-line">Command: {command as string}</div>
+                <div className="command-line">Command: {command}</div>
               )}
               <div className="output-line">
                 {renderOutput(output, index)}
